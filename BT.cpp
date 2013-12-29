@@ -26,6 +26,8 @@
             void insert(int);
             void output(node*, vector<int>);
             void displayPath();
+            int MaxDepth(node*);
+            void displayMaxDepth();
     };
     int main()
     {
@@ -48,7 +50,8 @@
             cout << "[2] Pre-order Traversal" <<endl;
             cout << "[3] Post-order Traversal" <<endl;
             cout << "[4] Output Paths from root to leaves";
-            cout << "[5] Exit" <<endl;
+            cout << "[5] Output the maximum depth of the tree" <<endl;
+            cout << "[6] Exit" <<endl;
             cin >> ch;
            switch(ch)
            {
@@ -72,7 +75,11 @@
                    cout<<" Output Paths from root to leaves: "<<endl;
 
                    b.displayPath();
-               case 5: 
+               case 5:
+               	   cout<<endl;
+               	   cout<<" Output the maximum depth of the tree: "<<endl;
+               	   b.displayMaxDepth();
+               case 6: 
                    return 0;
                    break;
                default:
@@ -171,6 +178,24 @@
             else{
                 output(p->left, myvector);
                 output(p->right, myvector);
+            }
+        }
+    }
+    
+    void BT::displayMaxDepth(){
+    	cout << MaxDepth(root);
+    }
+    
+    int BT::MaxDepth(node* root){
+        if(root == NULL) return 0;
+        else{
+            if(root->left==NULL && root->right==NULL){
+                return 1;
+            }
+            else{
+            	int maxLeft = MaxDepth(root->left);
+            	int maxRight = MaxDepth(root->right);
+                return  maxLeft>maxRight  ? maxLeft+1 : maxRight+1;
             }
         }
     }
